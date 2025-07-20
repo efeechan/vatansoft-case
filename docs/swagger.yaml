@@ -1,0 +1,832 @@
+basePath: /
+definitions:
+  controllers.AddressResponse:
+    properties:
+      ID:
+        type: integer
+      city:
+        type: string
+      country:
+        type: string
+      postal_code:
+        type: string
+      street:
+        type: string
+    type: object
+  controllers.CityResponse:
+    properties:
+      districts:
+        items:
+          $ref: '#/definitions/controllers.DistrictResponse'
+        type: array
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  controllers.DepartmentResponse:
+    properties:
+      ID:
+        type: integer
+      department_type:
+        type: string
+      department_type_id:
+        type: integer
+      hospital:
+        $ref: '#/definitions/controllers.HospitalResponse'
+      hospital_id:
+        type: integer
+      name:
+        type: string
+    type: object
+  controllers.DistrictResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  controllers.DoctorWithRelationsResponse:
+    properties:
+      department:
+        properties:
+          hospital_id:
+            type: integer
+          id:
+            type: integer
+          name:
+            type: string
+        type: object
+      department_id:
+        type: integer
+      email:
+        type: string
+      hospital:
+        properties:
+          address:
+            properties:
+              city:
+                type: string
+              country:
+                type: string
+              id:
+                type: integer
+              postal_code:
+                type: string
+              street:
+                type: string
+            type: object
+          id:
+            type: integer
+          name:
+            type: string
+          phone:
+            type: string
+        type: object
+      hospital_id:
+        type: integer
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  controllers.HospitalRegisterRequest:
+    properties:
+      address:
+        properties:
+          city:
+            type: string
+          country:
+            type: string
+          postal_code:
+            type: string
+          street:
+            type: string
+        type: object
+      admin_user:
+        properties:
+          email:
+            type: string
+          name:
+            type: string
+          password:
+            type: string
+        type: object
+      hospital_name:
+        type: string
+      phone:
+        type: string
+    type: object
+  controllers.HospitalResponse:
+    properties:
+      ID:
+        type: integer
+      address:
+        $ref: '#/definitions/controllers.AddressResponse'
+      name:
+        type: string
+      phone:
+        type: string
+    type: object
+  controllers.NewUserRequest:
+    properties:
+      email:
+        type: string
+      hospital_id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      profession_group_id:
+        type: integer
+      role:
+        type: string
+      surname:
+        type: string
+      tckn:
+        type: string
+      title_id:
+        type: integer
+    required:
+    - email
+    - hospital_id
+    - name
+    - password
+    - phone
+    - profession_group_id
+    - role
+    - surname
+    - tckn
+    - title_id
+    type: object
+  controllers.ProfessionGroupResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      titles:
+        items:
+          $ref: '#/definitions/controllers.TitleResponse'
+        type: array
+    type: object
+  controllers.TitleResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.Address:
+    properties:
+      city:
+        type: string
+      country:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      district_id:
+        type: integer
+      id:
+        type: integer
+      postal_code:
+        type: string
+      province_id:
+        type: integer
+      street:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.Hospital:
+    properties:
+      address:
+        $ref: '#/definitions/models.Address'
+      address_id:
+        type: integer
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      phone:
+        type: string
+      tax_number:
+        type: string
+      updatedAt:
+        type: string
+      users:
+        items:
+          $ref: '#/definitions/models.User'
+        type: array
+    type: object
+  models.ProfessionGroup:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      name:
+        type: string
+      titles:
+        items:
+          $ref: '#/definitions/models.Title'
+        type: array
+      updatedAt:
+        type: string
+    type: object
+  models.Title:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      name:
+        type: string
+      profession_group_id:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  models.User:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      email:
+        type: string
+      hospital:
+        $ref: '#/definitions/models.Hospital'
+      hospital_id:
+        type: integer
+      id:
+        type: integer
+      name:
+        type: string
+      phone:
+        type: string
+      profession_group:
+        $ref: '#/definitions/models.ProfessionGroup'
+      profession_group_id:
+        type: integer
+      role:
+        type: string
+      surname:
+        type: string
+      tckn:
+        type: string
+      title:
+        $ref: '#/definitions/models.Title'
+      title_id:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: efecan.yilmazdemir@gmail.com
+    name: Efecan Yılmazdemir
+  description: Backend case project for VatanSoft.
+  title: VatanSoft Hospital API
+  version: "1.0"
+paths:
+  /auth/request-password-reset:
+    post:
+      consumes:
+      - application/json
+      description: Sends a reset code for the given phone number. The code is returned
+        in the response (simulating SMS).
+      parameters:
+      - description: Phone number for password reset
+        in: body
+        name: request
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Reset code generated
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: User not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Error creating reset code
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Request password reset code
+      tags:
+      - Auth
+  /auth/reset-password:
+    post:
+      consumes:
+      - application/json
+      description: Resets the user's password after verifying the code sent to their
+        phone
+      parameters:
+      - description: Reset password request
+        in: body
+        name: request
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Password reset successfully
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request or code mismatch
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: User not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to update password
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Reset password using verification code
+      tags:
+      - Auth
+  /cities:
+    get:
+      description: Returns a list of all cities and their districts, with Redis caching
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/controllers.CityResponse'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List cities with districts
+      tags:
+      - Location
+  /departments:
+    get:
+      description: Returns a list of all departments with their types and hospital
+        info
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/controllers.DepartmentResponse'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List departments
+      tags:
+      - Department
+  /departments/{id}/doctors:
+    get:
+      description: Returns all doctors in the specified department
+      parameters:
+      - description: Department ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/controllers.DoctorWithRelationsResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get doctors by department ID
+      tags:
+      - Department
+  /hospitals:
+    get:
+      description: Returns a list of all registered hospitals including address and
+        admin info
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              additionalProperties: true
+              type: object
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List all hospitals with their address and admin users
+      tags:
+      - hospitals
+  /hospitals/register:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new hospital with address and registers an admin user
+        for it
+      parameters:
+      - description: Hospital and Admin registration info
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.HospitalRegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Register a new hospital and admin user
+      tags:
+      - hospitals
+  /listusers:
+    get:
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Filter by name
+        in: query
+        name: name
+        type: string
+      - description: Filter by surname
+        in: query
+        name: surname
+        type: string
+      - description: Filter by TCKN
+        in: query
+        name: tckn
+        type: string
+      - description: Filter by profession group ID
+        in: query
+        name: profession_group_id
+        type: string
+      - description: Filter by title ID
+        in: query
+        name: title_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List users with filtering and pagination (admin only)
+      tags:
+      - Users
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates the user by email and password
+      parameters:
+      - description: User credentials
+        in: body
+        name: credentials
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: token
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: invalid credentials
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Logs in a user and returns a JWT token
+      tags:
+      - Auth
+  /profession-groups:
+    get:
+      description: Returns all profession groups and their associated titles, using
+        Redis cache
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/controllers.ProfessionGroupResponse'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get all profession groups with titles
+      tags:
+      - Profession Groups
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Creates a hospital and registers an admin for it. Only one admin
+        per hospital is allowed.
+      parameters:
+      - description: Hospital and admin registration info
+        in: body
+        name: registration
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Hospital and admin user registered successfully
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid input or hospital already exists
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Registers a new hospital and its admin user
+      tags:
+      - Auth
+  /users:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get all users in the current user's hospital
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: New user data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.NewUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a new user (admin only)
+      tags:
+      - Users
+  /users/{id}:
+    delete:
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete a user (admin only)
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Updated user data
+        in: body
+        name: user
+        required: true
+        schema:
+          additionalProperties:
+            type: string
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update a user's info (admin only)
+      tags:
+      - Users
+swagger: "2.0"
